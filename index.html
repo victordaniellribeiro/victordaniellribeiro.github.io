@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Escape Room Egito</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://ramsestours.com/wp-content/uploads/2023/06/image-443.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+    .pergunta {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+    input {
+      padding: 10px;
+      font-size: 18px;
+      width: 60%;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #mensagem {
+      font-size: 24px;
+      color: red;
+      margin-top: 20px;
+    }
+    #somBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #444;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Escape Room - Egito Antigo</h1>
+<audio id="musica" autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2024/11/09/audio_130e3b6958.mp3" type="audio/mpeg">
+  Seu navegador não suporta áudio.
+</audio>
+<button id="somBtn" onclick="alternarSom()">🔊 Som ligado</button>
+
+<div id="jogo"></div>
+<h2 id="mensagem"></h2>
+
+<script>
+  const fases = [
+    {
+      nivel: 'Fácil',
+      perguntas: [
+        { texto: 'Qual o deus do sol?', respostas: ['rá', 'ra', 'Rá', 'Ra'] },
+        { texto: 'Qual o rio mais importante do Egito?', respostas: ['nilo', 'Nilo', 'rio Nilo', 'rio nilo'] },
+        { texto: 'Como se chamavam os reis do Egito?', respostas: ['faraó', 'faraós', 'faraos', 'Faraó', 'Faraós', 'Faraos'] },
+        { texto: 'Qual a escrita usada no Egito Antigo?', respostas: ['hieróglifos', 'hieroglifos', 'Hieróglifos', 'Hieroglifos'] },
+        { texto: 'Qual o nome das construções onde os faraós eram colocados após a morte?', respostas: ['pirâmide', 'pirâmides', 'piramide', 'piramides', 'Pirâmide', 'Pirâmides', 'Piramide', 'Piramides'] },
+      ]
+    },
+    {
+      nivel: 'Médio',
+      perguntas: [
+        { texto: 'Animal considerado deus no Egito Antigo:', respostas: ['gato', 'Gato'] },
+        { texto: 'Como era chamado o deus dos mortos?', respostas: ['osíris', 'Osíris', 'Osiris', 'osiris'] },
+        { texto: 'Qual a base da economia egípcia?', respostas: ['agricultura', 'Agricultura'] },
+        { texto: 'Em qual deserto está localizado o Egito?', respostas: ['saara', 'Saara'] },
+        { texto: 'Qual o metal precioso muito valorizado pelos egípcios?', respostas: ['ouro', 'Ouro'] },
+      ]
+    },
+    {
+      nivel: 'Difícil',
+      perguntas: [
+        { texto: 'Nome da rainha famosa por sua beleza e aliança com Roma:', respostas: ['cleópatra', 'Cleópatra', 'Cleopatra', 'cleopatra'] },
+        { texto: 'Deus com cabeça de falcão:', respostas: ['hórus', 'Hórus', 'horus', 'Horus'] },
+        { texto: 'Esposa de Osíris e mãe de Hórus:', respostas: ['isis', 'Isis', 'ísis', 'Ísis'] },
+        { texto: 'Qual faraó tentou substituir todos os deuses pelo deus Aton?', respostas: ['aquenáton', 'Aquenáton', 'Aquenaton', 'aquenaton'] },
+        { texto: 'Como era chamada a região dos túmulos dos faraós do Império Novo?', respostas: ['tebas', 'Tebas'] },
+      ]
+    }
+  ];
+
+  let faseAtual = null;
+  let perguntaAtual = 0;
+
+  function mostrarTelaInicial() {
+    document.getElementById('mensagem').innerText = '';
+    document.getElementById('jogo').innerHTML = `
+      <h2>Escolha o nível de dificuldade:</h2>
+      <button onclick="iniciarJogo(0)">Fácil</button>
+      <button onclick="iniciarJogo(1)">Médio</button>
+      <button onclick="iniciarJogo(2)">Difícil</button>
+    `;
+  }
+
+  function iniciarJogo(indiceFase) {
+    faseAtual = indiceFase;
+    perguntaAtual = 0;
+    mostrarPergunta();
+  }
+
+  function mostrarPergunta() {
+    const fase = fases[faseAtual];
+    const pergunta = fase.perguntas[perguntaAtual];
+    document.getElementById('mensagem').innerText = '';
+
+    document.getElementById('jogo').innerHTML = `
+      <h2>${fase.nivel} - Sala ${perguntaAtual + 1}</h2>
+      <div class="pergunta">${pergunta.texto}</div>
+      <input type="text" id="resposta" placeholder="Digite sua resposta">
+      <br>
+      <button onclick="verificarResposta()">Responder</button>
+    `;
+
+document.getElementById('resposta').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    verificarResposta();
+  }
+});
+
+  }
+
+  function verificarResposta() {
+    const respostaUsuario = document.getElementById('resposta').value.trim().toLowerCase();
+    const respostasCorretas = fases[faseAtual].perguntas[perguntaAtual].respostas.map(r => r.toLowerCase());
+
+    if (respostasCorretas.includes(respostaUsuario)) {
+      perguntaAtual++;
+      if (perguntaAtual < fases[faseAtual].perguntas.length) {
+        document.getElementById('mensagem').innerText = `Você escapou da sala ${perguntaAtual}! 🚪`;
+        setTimeout(mostrarPergunta, 1500);
+      } else {
+        document.getElementById('jogo').innerHTML = '<h2>Você conseguiu escapar da tumba do faraó! 🏆</h2>';
+      }
+    } else {
+      document.getElementById('mensagem').innerText = 'Você errou! 💀 Voltando ao início...';
+      setTimeout(mostrarTelaInicial, 2000);
+    }
+  }
+
+  function alternarSom() {
+    const audio = document.getElementById('musica');
+    const btn = document.getElementById('somBtn');
+    if (audio.paused) {
+      audio.play();
+      btn.innerText = '🔊 Som ligado';
+    } else {
+      audio.pause();
+      btn.innerText = '🔇 Som desligado';
+    }
+  }
+
+  mostrarTelaInicial();
+</script>
+
+</body>
+</html>
