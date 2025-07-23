@@ -159,6 +159,10 @@
   </style>
 </head>
 <body>
+<audio id="audioSusto">
+  <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_c3a6b431e4.mp3" type="audio/mpeg">
+  Seu navegador não suporta áudio.
+</audio>
 <div id="modalErro" class="modal">
   <div class="modal-conteudo">
     <img src="https://cdn.mos.cms.futurecdn.net/JVyF5eXNs2nzWRqUWvnCgm-650-80.jpg.webp" alt="Múmia Assustadora">
@@ -290,6 +294,12 @@
     const modal = document.getElementById('modalErro');
     modal.style.display = 'flex';
     modal.classList.add('tremer');
+// Toca o áudio de susto
+  const audio = document.getElementById('audioSusto');
+  audio.currentTime = 0; // Reinicia o som se já tiver sido tocado antes
+  audio.play().catch(e => {
+    console.warn('Falha ao tocar o som de susto:', e);
+  });
   }
   function voltarParaInicio() {
     const modal = document.getElementById('modalErro');
