@@ -52,6 +52,25 @@
       padding: 10px;
       cursor: pointer;
     }
+    #jogo.inicial {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 50vh;
+      font-size: 24px;
+    }
+    
+    #jogo.inicial h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    
+    #jogo.inicial button {
+      font-size: 22px;
+      padding: 12px 24px;
+      margin: 10px;
+    }
   </style>
 </head>
 <body>
@@ -103,15 +122,17 @@
   let faseAtual = null;
   let perguntaAtual = 0;
 
-  function mostrarTelaInicial() {
-    document.getElementById('mensagem').innerText = '';
-    document.getElementById('jogo').innerHTML = `
-      <h2>Escolha o nível de dificuldade:</h2>
-      <button onclick="iniciarJogo(0)">Fácil</button>
-      <button onclick="iniciarJogo(1)">Médio</button>
-      <button onclick="iniciarJogo(2)">Difícil</button>
-    `;
-  }
+function mostrarTelaInicial() {
+  document.getElementById('mensagem').innerText = '';
+  const jogoDiv = document.getElementById('jogo');
+  jogoDiv.className = 'inicial'; // ⬅️ aqui
+  jogoDiv.innerHTML = `
+    <h2>Escolha o nível de dificuldade:</h2>
+    <button onclick="iniciarJogo(0)">Fácil</button>
+    <button onclick="iniciarJogo(1)">Médio</button>
+    <button onclick="iniciarJogo(2)">Difícil</button>
+  `;
+}
 
   function iniciarJogo(indiceFase) {
     faseAtual = indiceFase;
@@ -120,6 +141,7 @@
   }
 
   function mostrarPergunta() {
+    document.getElementById('jogo').className = ''; // limpa estilo da tela inicial
     const fase = fases[faseAtual];
     const pergunta = fase.perguntas[perguntaAtual];
     document.getElementById('mensagem').innerText = '';
