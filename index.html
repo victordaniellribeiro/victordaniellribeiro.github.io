@@ -71,6 +71,23 @@
       padding: 12px 24px;
       margin: 10px;
     }
+    .botao-facil {
+      background-color: #00ff00; /* verde */
+      color: black;
+      border: none;
+    }
+    
+    .botao-medio {
+      background-color: #ffff00; /* amarelo */
+      color: black;
+      border: none;
+    }
+    
+    .botao-dificil {
+      background-color: #ff4d4d; /* vermelho */
+      color: black;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -90,31 +107,31 @@
     {
       nivel: 'Fácil',
       perguntas: [
-        { texto: 'Qual o deus do sol?', respostas: ['rá', 'ra', 'Rá', 'Ra'] },
-        { texto: 'Qual o rio mais importante do Egito?', respostas: ['nilo', 'Nilo', 'rio Nilo', 'rio nilo'] },
-        { texto: 'Como se chamavam os reis do Egito?', respostas: ['faraó', 'faraós', 'faraos', 'Faraó', 'Faraós', 'Faraos'] },
-        { texto: 'Qual a escrita usada no Egito Antigo?', respostas: ['hieróglifos', 'hieroglifos', 'Hieróglifos', 'Hieroglifos'] },
-        { texto: 'Qual o nome das construções onde os faraós eram colocados após a morte?', respostas: ['pirâmide', 'pirâmides', 'piramide', 'piramides', 'Pirâmide', 'Pirâmides', 'Piramide', 'Piramides'] },
+        { texto: 'Qual o deus do sol?', respostas: ['rá', 'ra', 'Rá', 'Ra', 'yza'] },
+        { texto: 'Qual o rio mais importante do Egito?', respostas: ['nilo', 'Nilo', 'rio Nilo', 'rio nilo','yza'] },
+        { texto: 'Como se chamavam os reis do Egito?', respostas: ['faraó', 'faraós', 'faraos', 'Faraó', 'Faraós', 'Faraos','yza'] },
+        { texto: 'Qual a escrita usada no Egito Antigo?', respostas: ['hieróglifos', 'hieroglifos', 'Hieróglifos', 'Hieroglifos','yza'] },
+        { texto: 'Qual o nome das construções onde os faraós eram colocados após a morte?', respostas: ['pirâmide', 'pirâmides', 'piramide', 'piramides', 'Pirâmide', 'Pirâmides', 'Piramide', 'Piramides','yza'] },
       ]
     },
     {
       nivel: 'Médio',
       perguntas: [
-        { texto: 'Animal considerado deus no Egito Antigo:', respostas: ['gato', 'Gato'] },
-        { texto: 'Como era chamado o deus dos mortos?', respostas: ['osíris', 'Osíris', 'Osiris', 'osiris'] },
-        { texto: 'Qual a base da economia egípcia?', respostas: ['agricultura', 'Agricultura'] },
-        { texto: 'Em qual deserto está localizado o Egito?', respostas: ['saara', 'Saara'] },
-        { texto: 'Qual o metal precioso muito valorizado pelos egípcios?', respostas: ['ouro', 'Ouro'] },
+        { texto: 'Animal considerado deus no Egito Antigo:', respostas: ['gato', 'Gato','yza'] },
+        { texto: 'Como era chamado o deus dos mortos?', respostas: ['osíris', 'Osíris', 'Osiris', 'osiris','yza'] },
+        { texto: 'Qual a base da economia egípcia?', respostas: ['agricultura', 'Agricultura','yza'] },
+        { texto: 'Em qual deserto está localizado o Egito?', respostas: ['saara', 'Saara','yza'] },
+        { texto: 'Qual o metal precioso muito valorizado pelos egípcios?', respostas: ['ouro', 'Ouro','yza'] },
       ]
     },
     {
       nivel: 'Difícil',
       perguntas: [
-        { texto: 'Nome da rainha famosa por sua beleza e aliança com Roma:', respostas: ['cleópatra', 'Cleópatra', 'Cleopatra', 'cleopatra'] },
-        { texto: 'Deus com cabeça de falcão:', respostas: ['hórus', 'Hórus', 'horus', 'Horus'] },
-        { texto: 'Esposa de Osíris e mãe de Hórus:', respostas: ['isis', 'Isis', 'ísis', 'Ísis'] },
-        { texto: 'Qual faraó tentou substituir todos os deuses pelo deus Aton?', respostas: ['aquenáton', 'Aquenáton', 'Aquenaton', 'aquenaton'] },
-        { texto: 'Como era chamada a região dos túmulos dos faraós do Império Novo?', respostas: ['tebas', 'Tebas'] },
+        { texto: 'Nome da rainha famosa por sua beleza e aliança com Roma:', respostas: ['cleópatra', 'Cleópatra', 'Cleopatra', 'cleopatra','yza'] },
+        { texto: 'Deus com cabeça de falcão:', respostas: ['hórus', 'Hórus', 'horus', 'Horus','yza'] },
+        { texto: 'Esposa de Osíris e mãe de Hórus:', respostas: ['isis', 'Isis', 'ísis', 'Ísis','yza'] },
+        { texto: 'Qual faraó tentou substituir todos os deuses pelo deus Aton?', respostas: ['aquenáton', 'Aquenáton', 'Aquenaton', 'aquenaton','yza'] },
+        { texto: 'Como era chamada a região dos túmulos dos faraós do Império Novo?', respostas: ['tebas', 'Tebas','yza'] },
       ]
     }
   ];
@@ -127,10 +144,10 @@ function mostrarTelaInicial() {
   const jogoDiv = document.getElementById('jogo');
   jogoDiv.className = 'inicial'; // ⬅️ aqui
   jogoDiv.innerHTML = `
-    <h2>Escolha o nível de dificuldade:</h2>
-    <button onclick="iniciarJogo(0)">Fácil</button>
-    <button onclick="iniciarJogo(1)">Médio</button>
-    <button onclick="iniciarJogo(2)">Difícil</button>
+    <h1>Escolha o nível de dificuldade:</h1>
+    <button class="botao-facil" onclick="iniciarJogo(0)">Fácil</button>
+    <button class="botao-medio" onclick="iniciarJogo(1)">Médio</button>
+    <button class="botao-dificil" onclick="iniciarJogo(2)">Difícil</button>
   `;
 }
 
